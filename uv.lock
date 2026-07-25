@@ -722,11 +722,13 @@ wheels = [
 name = "fastcluster"
 version = "1.2.6"
 source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version < '3.10' and platform_machine == 'arm64' and sys_platform == 'darwin'",
+    "python_full_version < '3.10' and platform_machine == 'aarch64' and sys_platform == 'linux'",
+    "(python_full_version < '3.10' and platform_machine != 'arm64' and sys_platform == 'darwin') or (python_full_version < '3.10' and platform_machine != 'aarch64' and sys_platform == 'linux') or (python_full_version < '3.10' and sys_platform != 'darwin' and sys_platform != 'linux')",
+]
 dependencies = [
     { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
-    { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.10.*'" },
-    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.11.*'" },
-    { name = "numpy", version = "2.5.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/5d/b8/f143d907d93bd4a3dd51d07c4e79b37bedbfc2177f4949bfa0d6ba0af647/fastcluster-1.2.6.tar.gz", hash = "sha256:aab886efa7b6bba7ac124f4498153d053e5a08b822d2254926b7206cdf5a8aa6", size = 173773, upload-time = "2022-02-27T10:51:36.515Z" }
 wheels = [
@@ -754,6 +756,54 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/87/15/af8c4a2a9329c9f117e49efd16c0e13ee1b3e4ef16be27d35005fbc36b6f/fastcluster-1.2.6-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a6f8da329c0032f2acaf4beaef958a2db0dae43d3f946f592dad5c29aa82c832", size = 193741, upload-time = "2022-02-27T10:51:32.959Z" },
     { url = "https://files.pythonhosted.org/packages/7f/61/b6d0e0723129ff34c214c90fd3bdcccc4b5594351eee0d949fd14a0a8a5d/fastcluster-1.2.6-cp39-cp39-win32.whl", hash = "sha256:eb3f98791427d5d5d02d023b66bcef61e48954edfadae6527ef72d70cf32ec86", size = 33219, upload-time = "2022-02-27T10:51:34.218Z" },
     { url = "https://files.pythonhosted.org/packages/d6/7c/9a5d7fd8ca2f8ede3fd32ce8550f7487ead6d4d6f46c4f0d9016dede7eb4/fastcluster-1.2.6-cp39-cp39-win_amd64.whl", hash = "sha256:4b9cfd426966b8037bec2fc03a0d7a9c87313482c699b36ffa1432b49f84ed2e", size = 36410, upload-time = "2022-02-27T10:51:35.214Z" },
+]
+
+[[package]]
+name = "fastcluster"
+version = "1.3.0"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version >= '3.12' and sys_platform == 'darwin'",
+    "python_full_version >= '3.12' and platform_machine == 'aarch64' and sys_platform == 'linux'",
+    "(python_full_version >= '3.12' and platform_machine != 'aarch64' and sys_platform == 'linux') or (python_full_version >= '3.12' and sys_platform != 'darwin' and sys_platform != 'linux')",
+    "python_full_version == '3.11.*' and sys_platform == 'darwin'",
+    "python_full_version == '3.11.*' and platform_machine == 'aarch64' and sys_platform == 'linux'",
+    "(python_full_version == '3.11.*' and platform_machine != 'aarch64' and sys_platform == 'linux') or (python_full_version == '3.11.*' and sys_platform != 'darwin' and sys_platform != 'linux')",
+    "python_full_version == '3.10.*' and sys_platform == 'darwin'",
+    "python_full_version == '3.10.*' and platform_machine == 'aarch64' and sys_platform == 'linux'",
+    "(python_full_version == '3.10.*' and platform_machine != 'aarch64' and sys_platform == 'linux') or (python_full_version == '3.10.*' and sys_platform != 'darwin' and sys_platform != 'linux')",
+]
+dependencies = [
+    { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.10.*'" },
+    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.11.*'" },
+    { name = "numpy", version = "2.5.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/41/1e/417892546cb92e71f5bcaeffc8d89b47716fd811805a8ae559b91f754015/fastcluster-1.3.0.tar.gz", hash = "sha256:d5233aeba5c3faa949c7fa6a39345a09f716ccebbd748541e5735c866696df02", size = 173065, upload-time = "2025-05-06T17:45:30.101Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/eb/78/920e14a3678f9de683300fe980aa2784048c20df2d0dd3ea8a77e0ff28dc/fastcluster-1.3.0-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:bdd5249ddd1746d5775034c30cf593eb8fa833461f679ed7db5271c29655f98d", size = 62914, upload-time = "2025-05-06T17:44:58.887Z" },
+    { url = "https://files.pythonhosted.org/packages/e0/7b/53ef4d7e25bae3ba09786d708a1a4f58255a00c1bd06f8ce2467a43752d7/fastcluster-1.3.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:f26ada34a0850a80f012090cf1637e1fb6565532fcc18fbc1e923046f7c60689", size = 39000, upload-time = "2025-05-06T17:45:00.652Z" },
+    { url = "https://files.pythonhosted.org/packages/aa/b8/5d7845bf4e7a06f6bc663c92515f57dbed8e2b33e056b251a9183e068154/fastcluster-1.3.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:0f094894d2179633072b4c7bad20898e0ab9505c14d78dcb2f53b980443a050c", size = 34773, upload-time = "2025-05-06T17:45:02.115Z" },
+    { url = "https://files.pythonhosted.org/packages/30/6d/60d9cfa4846d52655b6e85ed0ddee0fe1e0bad1160c06c181acdbb4e9cc7/fastcluster-1.3.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:3017d38cb118fe29608934194f92e8798a09ba07fa5ecc86320e06a877208a3e", size = 183904, upload-time = "2025-05-06T17:45:03.671Z" },
+    { url = "https://files.pythonhosted.org/packages/0d/2d/da143817fb00c7b5f8a9e733c17369753fd63d60fc5f291232df330d5e1d/fastcluster-1.3.0-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:0fd2389a1e0e5482f895ca49da618dbc1fd7d0281f366ede47d57a7d6ffb8af6", size = 193486, upload-time = "2025-05-06T17:45:05.307Z" },
+    { url = "https://files.pythonhosted.org/packages/b1/c0/b6344b88501e8d0f6748a6e3c0fc95d254e486c277469763f0d7abc611d5/fastcluster-1.3.0-cp310-cp310-win_amd64.whl", hash = "sha256:1ad634a88239bff99f2a1f054564c7468a189ab0a2810f8a77278e924f898bdf", size = 37327, upload-time = "2025-05-06T17:45:06.903Z" },
+    { url = "https://files.pythonhosted.org/packages/7b/fa/427569f391a9951fe483222d3df6bb18a690d963810473fb0e305150cf86/fastcluster-1.3.0-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:5ee25c5c36d2b68036aa0d9ff37ba316434824087e6b9884005f1eb09ceaf9ad", size = 62915, upload-time = "2025-05-06T17:45:07.894Z" },
+    { url = "https://files.pythonhosted.org/packages/34/ee/99e3b9968e5130940539ef34008e6eded2c6ea8b0bab01e5f83241bb03e7/fastcluster-1.3.0-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:6a65bed904a67a966a9496f438d28d1d4cc7b57da5ff9525fbdc047874de60cf", size = 38998, upload-time = "2025-05-06T17:45:08.937Z" },
+    { url = "https://files.pythonhosted.org/packages/67/16/c83a748debf8b0bb8d23b630b012a8a03a13f855b283df1da89e1c76f647/fastcluster-1.3.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:41dc92126d6195d38f011ae8f4f33d0e4b0edc842da73749f6608b529b6c6d34", size = 34774, upload-time = "2025-05-06T17:45:09.974Z" },
+    { url = "https://files.pythonhosted.org/packages/b9/09/3d7de0cb4669848fef3f9ec90adee4a4afc03544bc85b5d9fe284cbd909f/fastcluster-1.3.0-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:4e7037a010199cde6028c3d42327d2f84caae673fc708afed084b5f6c043650d", size = 184808, upload-time = "2025-05-06T17:45:10.992Z" },
+    { url = "https://files.pythonhosted.org/packages/d5/9b/700f7d7d4f39e909f8c098a283797d61afc694934c87eb041dd87ba8f63f/fastcluster-1.3.0-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7467e6da746dba310235546d0b6eef90a1652994dfd2c3022f7052effd142dee", size = 194527, upload-time = "2025-05-06T17:45:12.546Z" },
+    { url = "https://files.pythonhosted.org/packages/4c/60/ef55d3aa66914e0d1fe751df85b222fe9e78c8782c8f930ad3240d52d92f/fastcluster-1.3.0-cp311-cp311-win_amd64.whl", hash = "sha256:5ae60778ac7ed46108c1175478ff09af0a19a2dbb02090a1c13bf9c5bffbf230", size = 37328, upload-time = "2025-05-06T17:45:14.086Z" },
+    { url = "https://files.pythonhosted.org/packages/41/dc/b43081c5f4c1441b46e847adee464cea22dbb106891437b4a2d41a81f59a/fastcluster-1.3.0-cp312-cp312-macosx_10_13_universal2.whl", hash = "sha256:b20785852abb0ba5af62316327b654cea0fd736f819cd48792de0875ffb485f0", size = 62799, upload-time = "2025-05-06T17:45:15.084Z" },
+    { url = "https://files.pythonhosted.org/packages/fe/77/d1cf1f6e6c83c11ebcf4d378a5ea566d30b50e240477f695e33a9b88698b/fastcluster-1.3.0-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:6be2e33529917df1398f5d85ea55856ebddd81041b0fbe2dfc6badcb0c3b2054", size = 38879, upload-time = "2025-05-06T17:45:16.649Z" },
+    { url = "https://files.pythonhosted.org/packages/e5/69/0bf77416d2fba60d773039eb236c6fcf64384236c58e63b5a2120e803af3/fastcluster-1.3.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:1ddd6df989ee9ced20c4ecd7cef8df421a10b5410913385bb29d9183d21cc5ee", size = 34778, upload-time = "2025-05-06T17:45:17.646Z" },
+    { url = "https://files.pythonhosted.org/packages/db/36/bc720b34d27bcb40024d63692e1f30a4e9402670881121755c5a1fb5e5c8/fastcluster-1.3.0-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:d0d22a99d2fef1d7a314650e0f5fc78d4f91d4b233e5aa81b31da45506d25f21", size = 184385, upload-time = "2025-05-06T17:45:18.697Z" },
+    { url = "https://files.pythonhosted.org/packages/27/eb/df607b9e505fc105539977c7da68af06a448d6dfb86355ff2b839c775fbe/fastcluster-1.3.0-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:428126288895fcb6316a239635bafaa19e4677240afee2723a952e488929091d", size = 194095, upload-time = "2025-05-06T17:45:20.378Z" },
+    { url = "https://files.pythonhosted.org/packages/d0/63/e6ffa0b2cc9d708f9ab6eb4dd22fc843d64002e7cf9b2bc1ca6ec6df0dd7/fastcluster-1.3.0-cp312-cp312-win_amd64.whl", hash = "sha256:317db2531895cdf178a3009d3a8b13dfa83a5ed4ab14943b33377174cf9420cf", size = 37350, upload-time = "2025-05-06T17:45:22.018Z" },
+    { url = "https://files.pythonhosted.org/packages/36/87/07ff592bcf14e6fcace16f639f623fd4298ddd3538bbd4f0c0ee697f2edd/fastcluster-1.3.0-cp313-cp313-macosx_10_13_universal2.whl", hash = "sha256:07b7cb3a831958f3039064be193a7c125657861e57b257965245c755d41ac031", size = 62797, upload-time = "2025-05-06T17:45:23.13Z" },
+    { url = "https://files.pythonhosted.org/packages/89/b5/d72b995d254457e015057ca7ef0bbb34e85d45afb71f88d03f847879d711/fastcluster-1.3.0-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:34f0be433cfe0f5c5f3f71052e1850a99fe712f625889adb08d8d1ae851fe7ec", size = 38879, upload-time = "2025-05-06T17:45:24.208Z" },
+    { url = "https://files.pythonhosted.org/packages/40/2a/69c313ffc9521d5bd6a32250ac0222289ef6192b4ce524bb8d42796967ef/fastcluster-1.3.0-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:400213bdc7d5135c4282fdb7ad6b0579d5a041c16e67ef69bd9d6749335256fd", size = 34785, upload-time = "2025-05-06T17:45:25.236Z" },
+    { url = "https://files.pythonhosted.org/packages/ea/48/5d043913451576248ac026e9659f4fffb5356f7e2556e115fe3941f7fe03/fastcluster-1.3.0-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:5c71b7236288b9067d329359639789060e030285e8da2724fcdacd55ae751947", size = 184257, upload-time = "2025-05-06T17:45:26.722Z" },
+    { url = "https://files.pythonhosted.org/packages/59/f3/f71552b94a39509b62e72c4a26b6e4440bb9ce6decacf90af2916829e69e/fastcluster-1.3.0-cp313-cp313-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2dce31ace6f8e08c5400d6e19492fe09aba2b050f78a7aa6943ba2ae50dcd1b0", size = 193944, upload-time = "2025-05-06T17:45:27.866Z" },
+    { url = "https://files.pythonhosted.org/packages/b1/64/78709a98a17f33feb960c6547c33e7e4838e49d4998b3a318f255757fe68/fastcluster-1.3.0-cp313-cp313-win_amd64.whl", hash = "sha256:e7c78f0e9e05c6f380d3d018ef5106d4526461abfd764fe7c0a7b53911b36c7d", size = 37354, upload-time = "2025-05-06T17:45:29.056Z" },
 ]
 
 [[package]]
@@ -3983,7 +4033,8 @@ dependencies = [
     { name = "colour-science", version = "0.4.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
     { name = "colour-science", version = "0.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
     { name = "einops" },
-    { name = "fastcluster" },
+    { name = "fastcluster", version = "1.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
+    { name = "fastcluster", version = "1.3.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
     { name = "jpype1" },
     { name = "kornia" },
     { name = "lxml" },
@@ -4038,13 +4089,15 @@ requires-dist = [
     { name = "colorama", specifier = ">=0.4.6,<1.0.0" },
     { name = "colour-science", specifier = ">0.4.2" },
     { name = "einops", specifier = ">=0.8.0,<1.0.0" },
-    { name = "fastcluster", specifier = ">=1.2.6,<2.0.0" },
+    { name = "fastcluster", marker = "python_full_version < '3.10'", specifier = ">=1.2.6,<2.0.0" },
+    { name = "fastcluster", marker = "python_full_version >= '3.10'", specifier = ">=1.3.0,<2.0.0" },
     { name = "jpype1", specifier = ">=1.4.1,<2.0.0" },
     { name = "kornia", specifier = ">=0.7.3,<1.0.0" },
     { name = "lxml", specifier = ">=5.4.0" },
     { name = "markupsafe", specifier = ">=2.0.0,<3.0.0" },
     { name = "matplotlib", specifier = ">=3.6.3,<4.0.0" },
-    { name = "numpy", specifier = ">=1.23,<3" },
+    { name = "numpy", marker = "python_full_version < '3.10'", specifier = ">=1.23,<2" },
+    { name = "numpy", marker = "python_full_version >= '3.10'", specifier = ">=1.23,<3" },
     { name = "ome-types", specifier = ">=0.3.2,<1.0.0" },
     { name = "opencv-contrib-python-headless", specifier = ">=4.10.0.84,<5" },
     { name = "openpyxl", specifier = ">=3.1.5,<4.0.0" },
