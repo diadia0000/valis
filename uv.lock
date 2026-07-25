@@ -4097,7 +4097,7 @@ requires-dist = [
     { name = "markupsafe", specifier = ">=2.0.0,<3.0.0" },
     { name = "matplotlib", specifier = ">=3.6.3,<4.0.0" },
     { name = "numpy", marker = "python_full_version < '3.10'", specifier = ">=1.23,<2" },
-    { name = "numpy", marker = "python_full_version >= '3.10'", specifier = ">=1.23,<3" },
+    { name = "numpy", marker = "python_full_version >= '3.10'", specifier = ">=2,<3" },
     { name = "ome-types", specifier = ">=0.3.2,<1.0.0" },
     { name = "opencv-contrib-python-headless", specifier = ">=4.10.0.84,<5" },
     { name = "openpyxl", specifier = ">=3.1.5,<4.0.0" },

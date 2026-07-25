@@ -9,7 +9,19 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    # Standard drop-in approach that should work for most people.
-    - uses: ammaraskar/sphinx-action@master
+
+    - name: Install the latest version of uv and set the python version
+      uses: astral-sh/setup-uv@v5
       with:
-        docs-folder: "docs"
+       python-version: "3.12"
+
+    - name: Install libvips
+      run: |
+         sudo apt-get update
+         sudo apt-get install --no-install-recommends libvips
+
+    - name: Install the project
+      run: uv sync
+
+    - name: Build the docs
+      run: uv run sphinx-build -b html docs docs/_build/html
