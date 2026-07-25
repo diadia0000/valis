@@ -691,13 +691,13 @@ class AffineOptimizer(object):
             elif method == 'Nelder-Mead':
                 res = optimize.minimize(self.calc_cost, self.p, method=method, bounds=param_bounds)
                 new_p = res.x
-                cst = np.float(res.fun)
+                cst = float(res.fun)
 
             else:
                 # Default is Powell, which doesn't accept bounds
                 res = optimize.minimize(self.calc_cost, self.p, method=method, options={"return_all": True})
                 new_p = res.x
-                cst = np.float(res.fun)
+                cst = float(res.fun)
                 if hasattr(res, "allvecs"):
                     other_params = np.vstack(res.allvecs)
 
@@ -988,7 +988,7 @@ class AffineOptimizerKNN(AffineOptimizer):
         # volume of unit ball in d^n
         v_unit_ball = np.pi ** (0.5 * d) / gamma(0.5 * d + 1.0)
         n = len(X)
-        H = psi(n) - psi(k) + np.log(v_unit_ball) + (np.float(d) / np.float(n)) * (lr_k.sum())
+        H = psi(n) - psi(k) + np.log(v_unit_ball) + (float(d) / float(n)) * (lr_k.sum())
 
         return H
 
@@ -1069,7 +1069,7 @@ class AffineOptimizerOffGrid(AffineOptimizer):
         return (filtered_sr, filtered_sc)
 
     def get_interp(self, img):
-        return interpolate.RectBivariateSpline(np.arange(0, img.shape[0], dtype=np.float), np.arange(0, img.shape[1], dtype=np.float), img)
+        return interpolate.RectBivariateSpline(np.arange(0, img.shape[0], dtype=float), np.arange(0, img.shape[1], dtype=float), img)
 
     def interp_point(self, zr, zc, interp, z_range):
         z = np.array([interp(zr[i], zc[i])[0][0] for i in range(zr.size)])

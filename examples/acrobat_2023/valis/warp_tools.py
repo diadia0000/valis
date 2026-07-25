@@ -1812,7 +1812,7 @@ def warp_xy_rigid(xy, inv_matrix):
     Adpated from skimage._geometric.ProjectiveTransform._apply_mat
     Changed so that inverse matrix (found using dst -> src) automatically inverted to warp points forward (src -> dst)
     """
-    xy = np.array(xy, copy=False, ndmin=2)
+    xy = np.atleast_2d(np.asarray(xy))
 
     x, y = np.transpose(xy)
     src_pts = np.vstack((x, y, np.ones_like(x)))

@@ -2504,7 +2504,7 @@ class Valis(object):
         pathlib.Path(self.processed_dir).mkdir(exist_ok=True, parents=True)
         if self.norm_method is not None:
             if self.norm_method == "histo_match":
-                ref_histogram = np.zeros(256, dtype=np.int)
+                ref_histogram = np.zeros(256, dtype=int)
             else:
                 all_v = [None]*self.size
 

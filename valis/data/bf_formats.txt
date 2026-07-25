@@ -4,6 +4,7 @@
 .jpeg
 .jpe
 .sldy
+.sldyz
 .pbm
 .pgm
 .ppm
@@ -135,6 +136,9 @@
 .xlef
 .omp2info
 .dcimg
+.jdce
+.txm
+.txrm
 .dat
 .img
 .par

@@ -49,6 +49,11 @@ from threading import Thread
 import numpy as np
 import cv2
 import torch
+
+try:
+    from numpy import trapezoid as _trapezoid
+except ImportError:  # NumPy < 2.0
+    from numpy import trapz as _trapezoid
 # import matplotlib.pyplot as plt
 # import matplotlib
 # matplotlib.use('Agg')
@@ -405,7 +410,7 @@ def pose_auc(errors, thresholds):
         last_index = np.searchsorted(errors, t)
         r = np.r_[recall[:last_index], recall[last_index-1]]
         e = np.r_[errors[:last_index], t]
-        aucs.append(np.trapz(r, x=e)/t)
+        aucs.append(_trapezoid(r, x=e)/t)
     return aucs
 
 

@@ -522,7 +522,7 @@ def normalize_he(img: np.array, Io: int = 240, alpha: int = 1, beta: int = 0.15)
     img = img.reshape((-1, 3))
 
     # calculate optical density
-    opt_density = -np.log((img.astype(np.float)+1)/Io)
+    opt_density = -np.log((img.astype(float)+1)/Io)
 
     # remove transparent pixels
     opt_density_hat = opt_density[~np.any(opt_density<beta, axis=1)]

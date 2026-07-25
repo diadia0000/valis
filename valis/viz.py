@@ -88,7 +88,7 @@ def draw_features(kp_xy, image, n_features=500):
     if n_kp < n_features:
         n_features = n_kp
 
-    for c, r in kp_xy[0:n_features].astype(np.int):
+    for c, r in kp_xy[0:n_features].astype(int):
         circ_r, circ_c = draw.circle_perimeter(r, c, rad, shape=image.shape[0:2])
         feature_img[circ_r, circ_c] = np.random.randint(0, 256, 3)
 
