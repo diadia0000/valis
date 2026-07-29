@@ -864,6 +864,7 @@ class SimpleElastixWarper(NonRigidRegistrarXY):
         # Get deformation field #
         transformixImageFilter = sitk.TransformixImageFilter()
         transformixImageFilter.SetTransformParameterMap(elastix_image_filter_obj.GetTransformParameterMap())
+        transformixImageFilter.SetMovingImage(sitk_moving)
         transformixImageFilter.ComputeDeformationFieldOn()
         transformixImageFilter.Execute()
         deformationField = sitk.GetArrayFromImage(transformixImageFilter.GetDeformationField())
