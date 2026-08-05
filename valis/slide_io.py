@@ -3411,7 +3411,7 @@ def update_xml_for_new_img(img, reader, level=0, channel_names=None, colormap=CM
                                   channel_names=updated_channel_names, colormap=colormap)
 
     if og_valid_xml and og_ome is not None:
-        new_ome = og_ome.copy()
+        new_ome = og_ome.model_copy()
         new_ome.images = temp_new_ome.images
     else:
         new_ome = temp_new_ome

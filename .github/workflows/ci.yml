@@ -39,7 +39,7 @@ jobs:
      - name: Install libvips
        run: |
           sudo apt-get update
-          sudo apt-get install --no-install-recommends libvips
+          sudo apt-get install -y --no-install-recommends libvips
 
      - name: Install the project
        run: uv sync

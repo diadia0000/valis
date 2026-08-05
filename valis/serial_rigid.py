@@ -704,7 +704,7 @@ class SerialRigidRegistrar(object):
             """Measure distance between warped corresponding points
             """
             if M is None:
-                tform.estimate(src=dst_xy, dst=src_xy)
+                tform = warp_tools.estimate_transform(tform, src=dst_xy, dst=src_xy)
                 M = tform.params
             warped_xy = warp_tools.warp_xy(src_xy, M)
             d = np.median(warp_tools.calc_d(warped_xy,  dst_xy))
@@ -856,8 +856,7 @@ class SerialRigidRegistrar(object):
                 moving_kp_xy = og_match_info21.matched_kp2_xy
                 fixed_kp_xy = warp_tools.warp_xy(og_match_info21.matched_kp1_xy, prev_M)
 
-                rotation_tform = transform.SimilarityTransform()
-                rotation_tform.estimate(fixed_kp_xy, moving_kp_xy)
+                rotation_tform = warp_tools.estimate_transform(transform.SimilarityTransform, fixed_kp_xy, moving_kp_xy)
 
                 img_corners_xy = warp_tools.get_corners_of_image(detect_img.shape[0:2])[:, ::-1]
                 warped_corners_xy = warp_tools.warp_xy(img_corners_xy, M=rotation_tform.params)
@@ -935,8 +934,7 @@ class SerialRigidRegistrar(object):
             prev_M = M
 
         def _estimate_error(kp1, kp2):
-            error_estimator = transform.SimilarityTransform()
-            error_estimator.estimate(kp1, kp2)
+            error_estimator = warp_tools.estimate_transform(transform.SimilarityTransform, kp1, kp2)
             warped_1 = error_estimator(kp1)
             estimated_d = np.mean(warp_tools.calc_d(warped_1, kp2))
 
@@ -1169,7 +1167,7 @@ class SerialRigidRegistrar(object):
 
             # Estimate current error without reflections. Don't need to re-detect and match features
             to_prev_match_info = img_obj.match_dict[prev_img_obj]
-            transformer.estimate(to_prev_match_info.matched_kp2_xy, to_prev_match_info.matched_kp1_xy)
+            transformer = warp_tools.estimate_transform(transformer, to_prev_match_info.matched_kp2_xy, to_prev_match_info.matched_kp1_xy)
             unreflected_warped_src_xy = warp_tools.warp_xy(to_prev_match_info.matched_kp1_xy, transformer.params)
             _,  unreflected_d = warp_tools.measure_error(to_prev_match_info.matched_kp2_xy, unreflected_warped_src_xy, prev_img_obj.image.shape)
 
@@ -1206,7 +1204,7 @@ class SerialRigidRegistrar(object):
                                                  **filter_kwargs)
 
                     # Record info #
-                    _ = transformer.estimate(filtered_match_info12.matched_kp2_xy, filtered_match_info12.matched_kp1_xy)
+                    transformer = warp_tools.estimate_transform(transformer, filtered_match_info12.matched_kp2_xy, filtered_match_info12.matched_kp1_xy)
                     reflected_warped_src_xy = warp_tools.warp_xy(filtered_match_info12.matched_kp1_xy, transformer.params)
                     _,  reflected_d = warp_tools.measure_error(filtered_match_info12.matched_kp2_xy, reflected_warped_src_xy, prev_img_obj.padded_shape_rc)
                     reflected_d_vals.append(reflected_d)
@@ -1296,7 +1294,7 @@ class SerialRigidRegistrar(object):
             src_xy = warp_tools.warp_xy(to_prev_match_info.matched_kp1_xy, img_obj.T)
             dst_xy = warp_tools.warp_xy(to_prev_match_info.matched_kp2_xy, prev_M)
 
-            transformer.estimate(dst_xy, src_xy)
+            transformer = warp_tools.estimate_transform(transformer, dst_xy, src_xy)
 
             # Check quality. If poor, then set M to identity
             M = transformer.params
@@ -1532,7 +1530,7 @@ class SerialRigidRegistrar(object):
             rigid_reg_moving_xy = warp_tools.warp_xy(matches.matched_kp1_xy, M=img_obj.M)
             rigid_reg_fixed_xy = warp_tools.warp_xy(matches.matched_kp2_xy, M=img_obj.fixed_obj.M)
 
-            transformer.estimate(src=rigid_reg_fixed_xy, dst=rigid_reg_moving_xy)
+            transformer = warp_tools.estimate_transform(transformer, src=rigid_reg_fixed_xy, dst=rigid_reg_moving_xy)
 
             rolling_M = transformer.params
             rolling_M = self.check_M(rigid_reg_moving_xy, rigid_reg_fixed_xy, rolling_M)

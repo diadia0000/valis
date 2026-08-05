@@ -882,6 +882,58 @@ def order_points(pts_xy):
     return cw_pts_xy
 
 
+def estimate_transform(tform, src, dst):
+    """Estimate a transform, using whichever `skimage` API is available
+
+    `skimage` 0.26 deprecated estimating in place with `tform.estimate(src, dst)`
+    in favor of the `TransformClass.from_estimate(src, dst)` constructor, which
+    returns a new object. This wraps both, so `valis` keeps working with
+    `scikit-image` on either side of that change.
+
+    Parameters
+    ----------
+    tform : GeometricTransform or type
+        Transform to estimate, either an instance or the class itself.
+
+    src : ndarray
+        (N, 2) array of xy coordinates to warp to `dst`
+
+    dst : ndarray
+        (N, 2) array of xy coordinates matched to `src`
+
+    Returns
+    -------
+    estimated : GeometricTransform
+        Transform that warps `src` to `dst`. If the estimation failed,
+        `estimated.params` is all NaN, which is what `skimage` < 0.26 left
+        behind. Newer versions instead return an object that raises when
+        `params` is accessed, so the NaN are restored here to keep the
+        behavior the same across versions.
+
+    """
+
+    tform_cls = tform if isinstance(tform, type) else type(tform)
+
+    if hasattr(tform_cls, "from_estimate"):
+        # skimage >= 0.26
+        estimated = tform_cls.from_estimate(src, dst)
+        if estimated:
+            return estimated
+
+        estimated = tform_cls()
+        estimated.params = np.full_like(estimated.params, np.nan, dtype=float)
+
+        return estimated
+
+    # skimage < 0.26, which estimates in place
+    if isinstance(tform, type):
+        tform = tform_cls()
+
+    tform.estimate(src, dst)
+
+    return tform
+
+
 def get_resize_M(in_shape_rc, out_shape_rc):
 
     in_corners = get_corners_of_image(in_shape_rc)
@@ -1153,8 +1205,7 @@ def warp_img(img, M=None, bk_dxdy=None, out_shape_rc=None,
                                      transformation_dst_shape_rc=transformation_dst_shape_rc,
                                      src_shape_rc=src_shape_rc,
                                      dst_shape_rc=out_shape_rc)
-            M_tform = transform.ProjectiveTransform()
-            M_tform.estimate(warped_corners, img_corners_xy)
+            M_tform = estimate_transform(transform.ProjectiveTransform, warped_corners, img_corners_xy)
             warp_M = M_tform.params
 
         else:
@@ -1359,8 +1410,7 @@ def warp_img_inv(img, M=None, fwd_dxdy=None, transformation_src_shape_rc=None, t
                                     transformation_dst_shape_rc=transformation_dst_shape_rc,
                                     src_shape_rc=src_shape_rc,
                                     dst_shape_rc=warped_src_shape_rc)
-        M_tform = transform.ProjectiveTransform()
-        M_tform.estimate(img_corners_xy, warped_corners)
+        M_tform = estimate_transform(transform.ProjectiveTransform, img_corners_xy, warped_corners)
         warp_M = M_tform.params
 
         tx, ty = warp_M[:2, 2]

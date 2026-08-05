@@ -353,8 +353,7 @@ class MicroRigidRegistrar(object):
                     high_rez_fixed_matched_kp_xy = high_rez_fixed_matched_kp_xy[matches_in_masks, :]
 
         # Estimate M using position in larger image
-        transformer = transform.SimilarityTransform()
-        transformer.estimate(high_rez_fixed_matched_kp_xy, high_rez_moving_matched_kp_xy)
+        transformer = warp_tools.estimate_transform(transform.SimilarityTransform, high_rez_fixed_matched_kp_xy, high_rez_moving_matched_kp_xy)
         M = transformer.params
 
         # Scale for use on original processed image
@@ -365,8 +364,7 @@ class MicroRigidRegistrar(object):
                                     src_shape_rc=moving_slide.reg_img_shape_rc,
                                     dst_shape_rc=fixed_slide.reg_img_shape_rc)
 
-        M_tform = transform.ProjectiveTransform()
-        M_tform.estimate(warped_slide_corners, slide_corners_xy)
+        M_tform = warp_tools.estimate_transform(transform.ProjectiveTransform, warped_slide_corners, slide_corners_xy)
         scaled_M = M_tform.params
 
         new_M = moving_slide.M @ scaled_M

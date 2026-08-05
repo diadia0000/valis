@@ -1653,7 +1653,7 @@ def remove_regular_shapes(mask, irreg_thresh=0.05):
     n_prev_regions = len(regions)
     n_irreg_regions = 0
     for r in regions:
-        irreg_v = 1 - r.area/r.convex_area
+        irreg_v = 1 - r.area/r.area_convex
         if irreg_v > irreg_thresh:
             irreg_mask[r.slice][r.image] = 255
             n_irreg_regions += 1
@@ -2144,7 +2144,7 @@ def mask2covexhull(mask):
     concave_mask = np.zeros_like(mask)
     for region in mask_regions:
         r0, c0, r1, c1 = region.bbox
-        concave_mask[r0:r1, c0:c1] += region.convex_image.astype(np.uint8)
+        concave_mask[r0:r1, c0:c1] += region.image_convex.astype(np.uint8)
 
     concave_mask[concave_mask != 0] = 255
     concave_mask = 255*ndimage.binary_fill_holes(concave_mask).astype(np.uint8)

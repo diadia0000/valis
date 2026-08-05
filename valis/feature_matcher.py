@@ -252,7 +252,7 @@ def filter_matches_tukey(src_xy, dst_xy, tform=transform.SimilarityTransform()):
 
     """
 
-    tform.estimate(src=dst_xy, dst=src_xy)
+    tform = warp_tools.estimate_transform(tform, src=dst_xy, dst=src_xy)
     M = tform.params
 
     warped_xy = warp_tools.warp_xy(src_xy, M)
@@ -1001,8 +1001,8 @@ class Matcher(object):
             fixed_kp_xy = match_info.matched_kp1_xy
             moving_kp_xy = match_info.matched_kp2_xy
 
-        angle_estimator = transform.SimilarityTransform()
-        angle_estimator.estimate(fixed_kp_xy, moving_kp_xy) # Estimates inverse transform, and want 2 to align to 1
+        # Estimates inverse transform, and want 2 to align to 1
+        angle_estimator = warp_tools.estimate_transform(transform.SimilarityTransform, fixed_kp_xy, moving_kp_xy)
         rot_deg = np.rad2deg(angle_estimator.rotation)
 
         return rot_deg
@@ -1369,9 +1369,8 @@ class LightGlueMatcher(Matcher):
                 min_mean_distance = rot_min_mean_distances
 
         # Estimate rotation
-        angle_estimator = transform.SimilarityTransform()
         kp2_in_og = warp_tools.warp_xy(best_kp2, best_tform.params)
-        angle_estimator.estimate(kp2_in_og, best_kp1)
+        angle_estimator = warp_tools.estimate_transform(transform.SimilarityTransform, kp2_in_og, best_kp1)
         rot_deg = np.rad2deg(angle_estimator.rotation)
 
         return rot_deg
