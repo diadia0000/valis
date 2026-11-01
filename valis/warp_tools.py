@@ -2196,7 +2196,7 @@ def _warp_pt_vips(xy, M=None, vips_bk_dxdy=None, vips_fwd_dxdy=None, src_sxy=Non
     elif vips_bk_dxdy is not None and vips_fwd_dxdy is None:
         vips_region_bk_dxdy = vips_bk_dxdy.extract_area(*region_bbox_xywh)
         region_bk_dxdy = vips2numpy(vips_region_bk_dxdy)
-        region_dxdy = np.dstack(get_inverse_field(region_bk_dxdy[..., 0], region_bk_dxdy[..., 1]))
+        region_dxdy = np.dstack(get_inverse_field([region_bk_dxdy[..., 0], region_bk_dxdy[..., 1]]))
 
     nonrigid_xy = warp_xy_non_rigid(xy=rigid_xy_in_tile, dxdy=[region_dxdy[..., 0], region_dxdy[..., 1]], displacement_shape_rc=[bbox_h, bbox_w])
     nonrigid_xy += region_bbox_xywh[0:2]
